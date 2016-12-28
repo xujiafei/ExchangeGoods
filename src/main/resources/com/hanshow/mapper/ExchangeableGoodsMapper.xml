@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanshow.mapper.ExchangeableGoodsMapper">
+	<resultMap id="BaseResultMap" type="com.hanshow.database.ExchangeableGoods">
+		<result column="Id" property="id" jdbcType="INTEGER" />
+		<result column="Code" property="code" jdbcType="VARCHAR" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<result column="NeedIntegral" property="needIntegral" jdbcType="INTEGER" />
+		<result column="Remains" property="remains" jdbcType="INTEGER" />
+		<result column="AddTime" property="addIime" jdbcType="TIMESTAMP" />
+		<result column="UpdateTime" property="updateIime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="insert" parameterType="com.hanshow.database.ExchangeableGoods">
+		insert into exchangeable_goods (Id, Code, Name,
+		NeedIntegral, Remains, AddTime,
+		UpdateTime)
+		values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{needIntegral,jdbcType=INTEGER}, #{remains,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hanshow.database.ExchangeableGoods">
+		insert into exchangeable_goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="code != null">
+				Code,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+			<if test="needIntegral != null">
+				NeedIntegral,
+			</if>
+			<if test="remains != null">
+				Remains,
+			</if>
+			<if test="addIime != null">
+				AddTime,
+			</if>
+			<if test="updateIime != null">
+				UpdateTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needIntegral != null">
+				#{needIntegral,jdbcType=INTEGER},
+			</if>
+			<if test="remains != null">
+				#{remains,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.hanshow.database.ExchangeableGoods">
+		update exchangeable_goods
+		<trim prefix="set" suffixOverrides=",">
+			<if test="code != null">
+				Code= #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				Name= #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needIntegral != null">
+				NeedIntegral=#{needIntegral,jdbcType=INTEGER},
+			</if>
+			<if test="remains != null">
+				Remains= #{remains,jdbcType=INTEGER},
+			</if>
+			<if test="addIime != null">
+				AddTime=#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateIime != null">
+				UpdateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE
+		id = #{id}
+	</update>
+	<select id="selectForPage" parameterType="ExchangeableGoods">
+		select * from exchangeable_goods
+		<where>
+			<if test="id != null">
+				and Id=#{id,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				and Code= #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				and Name= #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needIntegral != null">
+				and NeedIntegral =#{needIntegral,jdbcType=INTEGER},
+			</if>
+			<if test="remains != null">
+				and Remains=#{remains,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				and AddTime=#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				and UpdateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</where>
+	</select>
+</mapper>

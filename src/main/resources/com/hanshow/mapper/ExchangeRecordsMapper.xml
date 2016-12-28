@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanshow.mapper.ExchangeRecordsMapper" >
+  <resultMap id="BaseResultMap" type="com.hanshow.database.ExchangeRecords" >
+    <result column="Id" property="id" jdbcType="INTEGER" />
+    <result column="MemberId" property="memberId" jdbcType="INTEGER" />
+    <result column="GoodsId" property="goodsId" jdbcType="INTEGER" />
+    <result column="ExchangeCount" property="exchangeCount" jdbcType="INTEGER" />
+    <result column="ExpenseIntegral" property="expenseIntegral" jdbcType="INTEGER" />
+    <result column="AddUserId" property="addUserId" jdbcType="INTEGER" />
+    <result column="AddTime" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="Name" property="name" jdbcType="VARCHAR" /><!-- 可兑换表 中字段-->
+  </resultMap>
+  <insert id="insert" parameterType="com.hanshow.database.ExchangeRecords" >
+    insert into exchange_records (Id, MemberId, GoodsId, 
+      ExchangeCount, ExpenseIntegral, AddUserId, 
+      AddTime, UpdateTime)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{exchangeCount,jdbcType=INTEGER}, #{expenseIntegral,jdbcType=INTEGER}, #{addUserId,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hanshow.database.ExchangeRecords" >
+    insert into exchange_records
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="memberId != null" >
+        MemberId,
+      </if>
+      <if test="goodsId != null" >
+        GoodsId,
+      </if>
+      <if test="exchangeCount != null" >
+        ExchangeCount,
+      </if>
+      <if test="expenseIntegral != null" >
+        ExpenseIntegral,
+      </if>
+      <if test="addUserId != null" >
+        AddUserId,
+      </if>
+      <if test="addTime != null" >
+        AddTime,
+      </if>
+      <if test="updateTime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeCount != null" >
+        #{exchangeCount,jdbcType=INTEGER},
+      </if>
+      <if test="expenseIntegral != null" >
+        #{expenseIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="addUserId != null" >
+        #{addUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+	<select id="selectForPage" parameterType="ExchangeRecords">
+		select r.*,g.Name from exchange_records r left join exchangeable_goods g
+		<where>
+			<if test="id != null">
+				and r.Id=#{id,jdbcType=INTEGER},
+			</if>
+			<if test="memberId != null">
+				and r.MemberId= #{memberId,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsId != null">
+				and r.GoodsId= #{goodsId,jdbcType=Integral},
+			</if>
+			<if test="exchangeCount != null">
+				and r.ExchangeCount =#{exchangeCount,jdbcType=INTEGER},
+			</if>
+			<if test="exchangeIntegral != null">
+				and r.ExchangeIntegral=#{ExchangeIntegral,jdbcType=INTEGER},
+			</if>
+			<if test="addUserId != null">
+				and r.AddUserId=#{addUserId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				and r.AddTime=#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				and r.UpdateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</where>
+	</select>
+</mapper>

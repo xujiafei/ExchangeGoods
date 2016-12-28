@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<Configuration status="WARN">  
+    <Properties>  
+        <Property name="LOG_HOME">D:/logs/test4</Property>
+    </Properties>  
+    <Appenders>  
+        <RollingRandomAccessFile name="MyError"  
+            fileName="${LOG_HOME}/manager-api.log"  
+            filePattern="${LOG_HOME}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-%i.log">  
+            <PatternLayout  
+                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n" />  
+            <Policies>  
+                <TimeBasedTriggeringPolicy interval="1" />  
+                <SizeBasedTriggeringPolicy size="10 MB" />  
+            </Policies>  
+            <DefaultRolloverStrategy max="100" />  
+        </RollingRandomAccessFile> 
+    </Appenders>  
+  
+    <Loggers>  
+        <Root level="info">  
+            <AppenderRef ref="MyError" />  
+        </Root>  
+    </Loggers>  
+</Configuration>

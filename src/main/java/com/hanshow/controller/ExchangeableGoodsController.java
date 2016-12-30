@@ -28,8 +28,7 @@ public class ExchangeableGoodsController {
 	 */
 	@RequestMapping(value="/getExchangeableGoodsList",method = RequestMethod.GET)
 	@ResponseBody
-	public String selectForPage(HttpServletRequest request,Integer page,Integer limit){
-		ExchangeableGoods params = GetBodyParams.toBean(request, ExchangeableGoods.class);
+	public String selectForPage(ExchangeableGoods params,Integer page,Integer limit){
 		String[] checkField = {"channeltype","channelcode"};
 		if(!CheckFields.doCheck(checkField, params)){
 			return BackJson.jsonFormat(BackStateEnum._500.getCode(), "缺少必要参数", null);

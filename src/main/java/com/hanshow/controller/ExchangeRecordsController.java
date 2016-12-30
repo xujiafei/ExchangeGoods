@@ -27,8 +27,7 @@ public class ExchangeRecordsController {
 	 */
 	@RequestMapping(value="/getExchangeRecordsList",method = RequestMethod.GET)
 	@ResponseBody
-	public String selectForPage(HttpServletRequest request,Integer page,Integer limit){
-		ExchangeRecords params = GetBodyParams.toBean(request, ExchangeRecords.class);
+	public String selectForPage(ExchangeRecords params,Integer page,Integer limit){
 		String[] checkField = {"channelType","channelCode"};
 		if(!CheckFields.doCheck(checkField, params)){
 			return BackJson.jsonFormat(BackStateEnum._500.getCode(), "缺少必要参数", null);

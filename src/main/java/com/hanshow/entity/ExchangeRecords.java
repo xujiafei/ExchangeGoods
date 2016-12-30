@@ -13,13 +13,19 @@ public class ExchangeRecords {
 
 	private Integer expenseIntegral;
 
-	private Integer adduserId;
+	private Integer addUserId;
 
 	private Date addTime;
 
 	private Date updateTime;
 
 	private String name;
+
+	private Integer channeltype;
+
+	private String channelcode;
+
+	private Integer storeId;
 
 	public Integer getId() {
 		return id;
@@ -61,12 +67,12 @@ public class ExchangeRecords {
 		this.expenseIntegral = expenseIntegral;
 	}
 
-	public Integer getAdduserId() {
-		return adduserId;
+	public Integer getAddUserId() {
+		return addUserId;
 	}
 
-	public void setAdduserId(Integer adduserId) {
-		this.adduserId = adduserId;
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
 	}
 
 	public Date getAddTime() {
@@ -91,6 +97,30 @@ public class ExchangeRecords {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getChanneltype() {
+		return channeltype;
+	}
+
+	public void setChanneltype(Integer channeltype) {
+		this.channeltype = channeltype;
+	}
+
+	public String getChannelcode() {
+		return channelcode;
+	}
+
+	public void setChannelcode(String channelcode) {
+		this.channelcode = channelcode;
+	}
+
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
 
 }

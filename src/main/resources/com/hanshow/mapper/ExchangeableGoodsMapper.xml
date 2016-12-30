@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hanshow.mapper.ExchangeableGoodsMapper">
-	<resultMap id="BaseResultMap" type="com.hanshow.database.ExchangeableGoods">
+	<resultMap id="BaseResultMap" type="com.hanshow.entity.ExchangeableGoods">
 		<result column="Id" property="id" jdbcType="INTEGER" />
 		<result column="Code" property="code" jdbcType="VARCHAR" />
 		<result column="Name" property="name" jdbcType="VARCHAR" />
 		<result column="NeedIntegral" property="needIntegral" jdbcType="INTEGER" />
 		<result column="Remains" property="remains" jdbcType="INTEGER" />
-		<result column="AddTime" property="addIime" jdbcType="TIMESTAMP" />
-		<result column="UpdateTime" property="updateIime" jdbcType="TIMESTAMP" />
+		<result column="AddTime" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="ChannelType" property="channeltype" jdbcType="INTEGER"/>
+		<result column="ChannelCode" property="channelcode" jdbcType="VARCHAR"/>
+		<result column="StoreId" property="storeId" jdbcType="INTEGER"/>
 	</resultMap>
-	<insert id="insert" parameterType="com.hanshow.database.ExchangeableGoods">
-		insert into exchangeable_goods (Id, Code, Name,
+	<insert id="insert" parameterType="com.hanshow.entity.ExchangeableGoods">
+		insert into exchangeable_goods ( Code, Name,
 		NeedIntegral, Remains, AddTime,
-		UpdateTime)
-		values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+		UpdateTime,ChannelType,ChannelCode,StoreId)
+		values ( #{code,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR},
 		#{needIntegral,jdbcType=INTEGER}, #{remains,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP},
-		#{updateTime,jdbcType=TIMESTAMP})
+		#{updateTime,jdbcType=TIMESTAMP},#{channeltype,jdbcType=INTEGER},#{channelcode,jdbcType=VARCHAR},#{storeId,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.hanshow.database.ExchangeableGoods">
+	<insert id="insertSelective" parameterType="com.hanshow.entity.ExchangeableGoods">
 		insert into exchangeable_goods
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				Id,
-			</if>
 			<if test="code != null">
 				Code,
 			</if>
@@ -37,17 +37,23 @@
 			<if test="remains != null">
 				Remains,
 			</if>
-			<if test="addIime != null">
+			<if test="addTime != null">
 				AddTime,
 			</if>
-			<if test="updateIime != null">
+			<if test="updateTime != null">
 				UpdateTime,
+			</if>
+			<if test="channeltype != null">
+				Channeltype,
+			</if>
+			<if test="channelcode != null">
+				Channelcode,
+			</if>
+			<if test="storeId != null">
+				StoreId,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
 			<if test="code != null">
 				#{code,jdbcType=VARCHAR},
 			</if>
@@ -66,9 +72,18 @@
 			<if test="updateTime != null">
 				#{updateTime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="channeltype != null">
+				#{channeltype,jdbcType=INTEGER},
+			</if>
+			<if test="channelcode != null">
+				#{channelcode,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
 		</trim>
 	</insert>
-	<update id="update" parameterType="com.hanshow.database.ExchangeableGoods">
+	<update id="update" parameterType="com.hanshow.entity.ExchangeableGoods">
 		update exchangeable_goods
 		<trim prefix="set" suffixOverrides=",">
 			<if test="code != null">
@@ -83,39 +98,63 @@
 			<if test="remains != null">
 				Remains= #{remains,jdbcType=INTEGER},
 			</if>
-			<if test="addIime != null">
+			<if test="addTime != null">
 				AddTime=#{addTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="updateIime != null">
+			<if test="updateTime != null">
 				UpdateTime=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="channeltype != null">
+				ChannelType=#{channeltype,jdbcType=INTEGER},
+			</if>
+			<if test="channelcode != null">
+				ChannelCode=#{channelcode,jdbcType=VARCHAR},
+			</if>
+			<if test="storeId != null">
+				StoreId=#{storeId,jdbcType=INTEGER},
 			</if>
 		</trim>
 		WHERE
-		id = #{id}
+		Id = #{id}
 	</update>
-	<select id="selectForPage" parameterType="ExchangeableGoods">
+	<update id="updateRemains">
+		update exchangeable_goods set Remains=Remains-#{1} , ChannelType=#{2} , ChannelCode=#{3} where Id = #{0}
+	</update>
+	<select id="selectForPage" parameterType="com.hanshow.entity.ExchangeableGoods" resultMap="BaseResultMap">
 		select * from exchangeable_goods
 		<where>
 			<if test="id != null">
-				and Id=#{id,jdbcType=INTEGER},
+				and Id=#{id,jdbcType=INTEGER}
 			</if>
 			<if test="code != null">
-				and Code= #{code,jdbcType=VARCHAR},
+				and Code= #{code,jdbcType=VARCHAR}
 			</if>
 			<if test="name != null">
-				and Name= #{name,jdbcType=VARCHAR},
+				and Name= #{name,jdbcType=VARCHAR}
 			</if>
-			<if test="needIntegral != null">
-				and NeedIntegral =#{needIntegral,jdbcType=INTEGER},
+			<if test="minIntegral != null">
+				and NeedIntegral &gt;=#{minIntegral,jdbcType=INTEGER}
+			</if>
+			<if test="maxIntegral != null">
+				and NeedIntegral &lt;=#{maxIntegral,jdbcType=INTEGER}
 			</if>
 			<if test="remains != null">
-				and Remains=#{remains,jdbcType=INTEGER},
+				and Remains=#{remains,jdbcType=INTEGER}
 			</if>
 			<if test="addTime != null">
-				and AddTime=#{addTime,jdbcType=TIMESTAMP},
+				and AddTime=#{addTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="updateTime != null">
-				and UpdateTime=#{updateTime,jdbcType=TIMESTAMP},
+				and UpdateTime=#{updateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="channeltype != null">
+				and ChannelType=#{channeltype,jdbcType=INTEGER}
+			</if>
+			<if test="channelcode != null">
+				and ChannelCode=#{channelcode,jdbcType=VARCHAR}
+			</if>
+			<if test="storeId != null">
+				and StoreId=#{storeId,jdbcType=INTEGER}
 			</if>
 		</where>
 	</select>

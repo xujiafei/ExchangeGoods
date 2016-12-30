@@ -42,5 +42,12 @@ public class ExchangeableGoodsServiceImpl implements ExchangeableGoodsService {
 			return new BackMsgEntity(BackStateEnum._500.getCode(), "更新失败", null);
 		}
 	}
-
+	@Override
+	public BackMsgEntity updateRemains(Integer id,Integer count,Integer channeltype,String channelcode) {
+		if(exchangeableGoodsMapper.updateRemains(id,count,channeltype,channelcode)>0){
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "更新成功",null);
+		}else{
+			return new BackMsgEntity(BackStateEnum._500.getCode(), "更新失败", null);
+		}
+	}
 }

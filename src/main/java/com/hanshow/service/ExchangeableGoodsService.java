@@ -10,4 +10,6 @@ public interface ExchangeableGoodsService {
 	BackMsgEntity insert(ExchangeableGoods goods);
 
 	BackMsgEntity update(ExchangeableGoods goods);
+
+	BackMsgEntity updateRemains(Integer id, Integer count, Integer channeltype, String channelcode);
 }

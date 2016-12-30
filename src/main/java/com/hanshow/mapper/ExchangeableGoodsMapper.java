@@ -10,6 +10,8 @@ public interface ExchangeableGoodsMapper {
 
 	int update(ExchangeableGoods goods);
 
+	int updateRemains(Integer id, Integer count, Integer channeltype, String channelCode);
+
 	int insertSelective(ExchangeableGoods goods);
 
 	List<ExchangeableGoods> selectForPage(ExchangeableGoods goods, PageBounds pageBounds);

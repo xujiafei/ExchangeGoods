@@ -28,7 +28,7 @@ public class ExchangeRecordsController {
 	@RequestMapping(value="/getExchangeRecordsList",method = RequestMethod.GET)
 	@ResponseBody
 	public String selectForPage(ExchangeRecords params,Integer page,Integer limit){
-		String[] checkField = {"channelType","channelCode"};
+		String[] checkField = {"channeltype","channelcode"};
 		if(!CheckFields.doCheck(checkField, params)){
 			return BackJson.jsonFormat(BackStateEnum._500.getCode(), "缺少必要参数", null);
 		}else{
@@ -43,14 +43,12 @@ public class ExchangeRecordsController {
 	@ResponseBody
 	public String insert(HttpServletRequest request){
 		ExchangeRecords params=GetBodyParams.toBean(request, ExchangeRecords.class);
-		String[] fields={"channelType","channelCode"};
+		String[] fields={"channeltype","channelcode"};
 		if(!CheckFields.doCheck(fields, params)){
 			return BackJson.jsonFormat(BackStateEnum._500.getCode(),"缺少必要参数",null);
 		}else{
 			return BackJson.jsonFormat(exchangeRecordsService.insert(params));
 		}
-			
 	}
 	
-
 }

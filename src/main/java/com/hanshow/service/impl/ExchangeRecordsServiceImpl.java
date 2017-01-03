@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.hanshow.apiutil.BackMsgEntity;
 import com.hanshow.apiutil.BackStateEnum;
+import com.hanshow.apiutil.PageUtil;
 import com.hanshow.entity.ExchangeRecords;
 import com.hanshow.mapper.ExchangeRecordsMapper;
 import com.hanshow.service.ExchangeRecordsService;
@@ -23,7 +24,7 @@ public class ExchangeRecordsServiceImpl implements ExchangeRecordsService {
 		if(list==null||list.size()==0){
 			return new BackMsgEntity(BackStateEnum._404.getCode(), "没有可兑换商品", null);
 		}else{
-			return new BackMsgEntity(BackStateEnum._200.getCode(), "查询成功", list);
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "查询成功", PageUtil.initPage(list, pageBounds));
 		}
 	}
 	@Override

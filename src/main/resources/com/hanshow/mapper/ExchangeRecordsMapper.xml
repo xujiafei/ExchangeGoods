@@ -12,7 +12,6 @@
 		<result column="AddUserId" property="addUserId" jdbcType="INTEGER" />
 		<result column="AddTime" property="addTime" jdbcType="TIMESTAMP" />
 		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="Name" property="name" jdbcType="VARCHAR" /><!-- 
 			可兑换表 中字段 -->
 		<result column="ChannelType" property="channeltype" jdbcType="INTEGER" />
@@ -20,12 +19,16 @@
 		<result column="StoreId" property="storeId" jdbcType="INTEGER" />
 	</resultMap>
 	<insert id="insert" parameterType="com.hanshow.entity.ExchangeRecords">
-		insert into exchange_records (MemberId, GoodsId,
+		insert into exchange_records
+		(MemberId, GoodsId,
 		ExchangeCount, ExpenseIntegral, AddUserId,
-		AddTime, UpdateTime,ChannelType,ChannelCode,StoreId)
-		values (#{memberId,jdbcType=INTEGER},
+		AddTime,
+		UpdateTime,ChannelType,ChannelCode,StoreId)
+		values
+		(#{memberId,jdbcType=INTEGER},
 		#{goodsId,jdbcType=INTEGER},
-		#{exchangeCount,jdbcType=INTEGER}, #{expenseIntegral,jdbcType=INTEGER}, #{addUserId,jdbcType=INTEGER},
+		#{exchangeCount,jdbcType=INTEGER},
+		#{expenseIntegral,jdbcType=INTEGER}, #{addUserId,jdbcType=INTEGER},
 		#{addTime,jdbcType=TIMESTAMP},
 		#{updateTime,jdbcType=TIMESTAMP},#{channeltype,jdbcType=INTEGER},#{channelcode,jdbcType=VARCHAR},#{storeId,jdbcType=INTEGER})
 	</insert>
@@ -96,7 +99,8 @@
 			</if>
 		</trim>
 	</insert>
-	<select id="selectForPage" parameterType="com.hanshow.entity.ExchangeRecords" resultMap="BaseResultMap">
+	<select id="selectForPage" parameterType="com.hanshow.entity.ExchangeRecords"
+		resultMap="BaseResultMap">
 		select r.*,g.Name from exchange_records r left join exchangeable_goods
 		g on r.GoodsId=g.Id
 		<where>
@@ -118,12 +122,6 @@
 			</if>
 			<if test="addUserId != null">
 				and r.AddUserId=#{addUserId,jdbcType=INTEGER}
-			</if>
-			<if test="addTime != null">
-				and r.AddTime=#{addTime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="updateTime != null">
-				and r.UpdateTime=#{updateTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="channeltype != null">
 				and r.ChannelType=#{channeltype,jdbcType=INTEGER}

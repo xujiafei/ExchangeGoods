@@ -35,7 +35,19 @@ public class ExchangeRecordsController {
 			return BackJson.jsonFormat(exchangeRecordsService.selectForPage(params,PageUtil.initParam(page, limit)));
 		}
 	}
-	
+	/**
+	 * 查询所有对换记录
+	 */
+	@RequestMapping(value="/getAllExchangeRecordsList",method = RequestMethod.GET)
+	@ResponseBody
+	public String selectAll(ExchangeRecords params,Integer page,Integer limit){
+		String[] checkField = {"channeltype","channelcode"};
+		if(!CheckFields.doCheck(checkField, params)){
+			return BackJson.jsonFormat(BackStateEnum._500.getCode(), "缺少必要参数", null);
+		}else{
+			return BackJson.jsonFormat(exchangeRecordsService.selectAll(params,PageUtil.initParam(page, limit)));
+		}
+	}
 	/**
 	 * 添加兑换记录
 	 */
@@ -51,4 +63,21 @@ public class ExchangeRecordsController {
 		}
 	}
 	
+	/**
+	 * 更新状态
+	 */
+	@RequestMapping(value="/updateStatus",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateStatus(Integer id){
+		return BackJson.jsonFormat(exchangeRecordsService.updateStatus(id));
+	}
+	
+	/**
+	 * 删除失败数据
+	 */
+	@RequestMapping(value="/deleteRecord",method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteRecord(Integer id){
+		return BackJson.jsonFormat(exchangeRecordsService.deleteRecord(id));
+	}
 }

@@ -29,10 +29,25 @@ public class ExchangeRecordsServiceImpl implements ExchangeRecordsService {
 	}
 	@Override
 	public BackMsgEntity insert(ExchangeRecords records) {
-		if(exchangeRecordsMapper.insert(records)>0){
-			return new BackMsgEntity(BackStateEnum._200.getCode(), "添加成功",null);
+		Integer id=exchangeRecordsMapper.insert(records);
+		if(id>0){
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "添加成功",id);
 		}else{
 			return new BackMsgEntity(BackStateEnum._500.getCode(), "添加失败", null);
+		}
+	}
+	public BackMsgEntity updateStatus(Integer id) {
+		if(exchangeRecordsMapper.updateStatus(id)>0){
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "更新成功",null);
+		}else{
+			return new BackMsgEntity(BackStateEnum._500.getCode(), "更新失败",null);
+		}
+	}
+	public BackMsgEntity deleteRecord(Integer id) {
+		if(exchangeRecordsMapper.delete(id)>0){
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "删除成功",null);
+		}else{
+			return new BackMsgEntity(BackStateEnum._500.getCode(), "删除失败",null);
 		}
 	}
 

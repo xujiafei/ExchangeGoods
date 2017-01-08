@@ -11,4 +11,8 @@ public interface ExchangeRecordsMapper {
 	int insertSelective(ExchangeRecords record);
 
 	List<ExchangeRecords> selectForPage(ExchangeRecords record, PageBounds pageBounds);
+	
+	int updateStatus(Integer id);
+	
+	int delete(Integer id);
 }

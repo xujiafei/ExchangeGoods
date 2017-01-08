@@ -12,13 +12,14 @@
 		<result column="AddUserId" property="addUserId" jdbcType="INTEGER" />
 		<result column="AddTime" property="addTime" jdbcType="TIMESTAMP" />
 		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="Name" property="name" jdbcType="VARCHAR" /><!-- 
-			可兑换表 中字段 -->
+		<result column="Status" property="status" jdbcType="INTEGER" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<!-- 可兑换表 中字段 -->
 		<result column="ChannelType" property="channeltype" jdbcType="INTEGER" />
 		<result column="ChannelCode" property="channelcode" jdbcType="VARCHAR" />
 		<result column="StoreId" property="storeId" jdbcType="INTEGER" />
 	</resultMap>
-	<insert id="insert" parameterType="com.hanshow.entity.ExchangeRecords">
+	<insert id="insert" parameterType="com.hanshow.entity.ExchangeRecords" keyProperty="id">
 		insert into exchange_records
 		(MemberId, GoodsId,
 		ExchangeCount, ExpenseIntegral, AddUserId,
@@ -132,6 +133,63 @@
 			<if test="storeId != null">
 				and r.StoreId=#{storeId,jdbcType=INTEGER}
 			</if>
+			<if test="startTime!=null">
+				and r.UpdateTime &gt;={#startTime,jdbcType=Date}
+			</if>
+			<if test="endTime!=null">
+				and r.UpdateTime &lt;={#endTime,jdbcType=Date}
+			</if>
+			and r.Status=1
 		</where>
 	</select>
+	<select id="selectAll" parameterType="com.hanshow.entity.ExchangeRecords"
+		resultMap="BaseResultMap">
+		select r.*,g.Name from exchange_records r left join exchangeable_goods
+		g on r.GoodsId=g.Id
+		<where>
+			<if test="id != null">
+				and r.Id=#{id,jdbcType=INTEGER}
+			</if>
+			<if test="memberId != null">
+				and r.MemberId= #{memberId,jdbcType=VARCHAR}
+			</if>
+			<if test="goodsId != null">
+				and r.GoodsId= #{goodsId,jdbcType=Integral}
+			</if>
+			<if test="exchangeCount != null">
+				and r.ExchangeCount =#{exchangeCount,jdbcType=INTEGER}
+			</if>
+			<if test="expenseIntegral != null">
+				and
+				r.ExpenseIntegral=#{expenseIntegral,jdbcType=INTEGER}
+			</if>
+			<if test="addUserId != null">
+				and r.AddUserId=#{addUserId,jdbcType=INTEGER}
+			</if>
+			<if test="channeltype != null">
+				and r.ChannelType=#{channeltype,jdbcType=INTEGER}
+			</if>
+			<if test="channelcode != null">
+				and r.ChannelCode=#{channelcode,jdbcType=VARCHAR}
+			</if>
+			<if test="storeId != null">
+				and r.StoreId=#{storeId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime!=null">
+				and r.UpdateTime &gt;={#startTime,jdbcType=Date}
+			</if>
+			<if test="endTime!=null">
+				and r.UpdateTime &lt;={#endTime,jdbcType=Date}
+			</if>
+			and r.Status=1
+		</where>
+	</select>
+	<update id="updateStatus" parameterType="Integer">
+		update exchange_records set Status=1 , UpdateTime=now()
+		where Id=#{0};
+	</update>
+	<delete id="delete" parameterType="Integer">
+		delete from exchange_records
+		where Id=#{0};
+	</delete>
 </mapper>

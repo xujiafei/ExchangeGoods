@@ -6,7 +6,12 @@ import com.hanshow.entity.ExchangeRecords;
 
 public interface ExchangeRecordsService {
 	BackMsgEntity selectForPage(ExchangeRecords record, PageBounds pageBounds);
+	
+	BackMsgEntity selectAll(ExchangeRecords record, PageBounds pageBounds);
 
 	BackMsgEntity insert(ExchangeRecords record);
 
+	BackMsgEntity updateStatus(Integer id);
+	
+	BackMsgEntity deleteRecord(Integer id);
 }

@@ -27,6 +27,11 @@ public class ExchangeRecords {
 
 	private Integer storeId;
 
+	private Integer status;
+
+	private Date startTime;
+	private Date endTime;
+
 	public Integer getId() {
 		return id;
 	}
@@ -121,6 +126,30 @@ public class ExchangeRecords {
 
 	public void setStoreId(Integer storeId) {
 		this.storeId = storeId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 }

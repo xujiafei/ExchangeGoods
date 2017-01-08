@@ -7,7 +7,7 @@ import com.hanshow.entity.ExchangeRecords;
 public interface ExchangeRecordsService {
 	BackMsgEntity selectForPage(ExchangeRecords record, PageBounds pageBounds);
 	
-	BackMsgEntity selectAll(ExchangeRecords record, PageBounds pageBounds);
+	BackMsgEntity selectAll(ExchangeRecords record);
 
 	BackMsgEntity insert(ExchangeRecords record);
 

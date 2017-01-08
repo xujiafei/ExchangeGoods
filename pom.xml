@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.github.miemiedev</groupId>
 			<artifactId>mybatis-paginator</artifactId>
-			<version>1.2.9</version>
+			<version>1.2.17</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -122,8 +122,9 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.5.2</version>
 		</dependency> -->
-	</dependencies>
-	<build>
+		
+	</dependencies> 
+	<build> 
 		<finalName>exchange-integral-api-main</finalName>
 	</build>
 </project>

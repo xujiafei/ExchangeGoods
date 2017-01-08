@@ -2,6 +2,8 @@ package com.hanshow.entity;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ExchangeRecords {
 	private Integer id;
 
@@ -29,8 +31,8 @@ public class ExchangeRecords {
 
 	private Integer status;
 
-	private Date startTime;
-	private Date endTime;
+	private String startTime;
+	private String endTime;
 
 	public Integer getId() {
 		return id;
@@ -79,7 +81,7 @@ public class ExchangeRecords {
 	public void setAddUserId(Integer addUserId) {
 		this.addUserId = addUserId;
 	}
-
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Date getAddTime() {
 		return addTime;
 	}
@@ -87,7 +89,7 @@ public class ExchangeRecords {
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
 	}
-
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Date getUpdateTime() {
 		return updateTime;
 	}
@@ -135,21 +137,20 @@ public class ExchangeRecords {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+
 
 }

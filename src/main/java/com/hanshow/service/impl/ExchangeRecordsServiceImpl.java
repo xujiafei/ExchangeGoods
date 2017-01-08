@@ -22,20 +22,20 @@ public class ExchangeRecordsServiceImpl implements ExchangeRecordsService {
 	public BackMsgEntity selectForPage(ExchangeRecords records,PageBounds pageBounds) {
 		List<ExchangeRecords> list = exchangeRecordsMapper.selectForPage(records,pageBounds);
 		if(list==null||list.size()==0){
-			return new BackMsgEntity(BackStateEnum._404.getCode(), "没有可兑换商品", null);
+			return new BackMsgEntity(BackStateEnum._404.getCode(), "没有兑换记录", null);
 		}else{
 			return new BackMsgEntity(BackStateEnum._200.getCode(), "查询成功", PageUtil.initPage(list, pageBounds));
 		}
 	}
 	@Override
 	public BackMsgEntity insert(ExchangeRecords records) {
-		Integer id=exchangeRecordsMapper.insert(records);
-		if(id>0){
-			return new BackMsgEntity(BackStateEnum._200.getCode(), "添加成功",id);
+		if(exchangeRecordsMapper.insert(records)>0){
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "添加成功",records.getId());
 		}else{
 			return new BackMsgEntity(BackStateEnum._500.getCode(), "添加失败", null);
 		}
 	}
+	@Override
 	public BackMsgEntity updateStatus(Integer id) {
 		if(exchangeRecordsMapper.updateStatus(id)>0){
 			return new BackMsgEntity(BackStateEnum._200.getCode(), "更新成功",null);
@@ -43,6 +43,7 @@ public class ExchangeRecordsServiceImpl implements ExchangeRecordsService {
 			return new BackMsgEntity(BackStateEnum._500.getCode(), "更新失败",null);
 		}
 	}
+	@Override
 	public BackMsgEntity deleteRecord(Integer id) {
 		if(exchangeRecordsMapper.delete(id)>0){
 			return new BackMsgEntity(BackStateEnum._200.getCode(), "删除成功",null);
@@ -50,5 +51,13 @@ public class ExchangeRecordsServiceImpl implements ExchangeRecordsService {
 			return new BackMsgEntity(BackStateEnum._500.getCode(), "删除失败",null);
 		}
 	}
-
+	@Override
+	public BackMsgEntity selectAll(ExchangeRecords record) {
+		List<ExchangeRecords> list = exchangeRecordsMapper.selectAll(record);
+		if(list==null||list.size()==0){
+			return new BackMsgEntity(BackStateEnum._404.getCode(), "没有兑换记录", null);
+		}else{
+			return new BackMsgEntity(BackStateEnum._200.getCode(), "查询成功", list);
+		}
+	}
 }

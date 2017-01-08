@@ -77,6 +77,8 @@ public class TestService{
 		pageBounds.setPage(0);
 		records.setChannelcode("2");
 		records.setChanneltype(1);
+		records.setStartTime("2017-01-01");
+		records.setEndTime("2017-01-08");
 		BackMsgEntity result=exchangeRecordsService.selectForPage(records, pageBounds);
 		System.out.print(result.getStatus());
 	}

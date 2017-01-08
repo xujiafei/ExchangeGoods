@@ -2,6 +2,8 @@ package com.hanshow.entity;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ExchangeableGoods {
     private Integer id;
 
@@ -66,7 +68,7 @@ public class ExchangeableGoods {
 	public void setRemains(Integer remains) {
 		this.remains = remains;
 	}
-
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Date getAddTime() {
 		return addTime;
 	}
@@ -74,7 +76,7 @@ public class ExchangeableGoods {
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
 	}
-
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	public Date getUpdateTime() {
 		return updateTime;
 	}

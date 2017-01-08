@@ -45,7 +45,7 @@ public class ExchangeRecordsController {
 		if(!CheckFields.doCheck(checkField, params)){
 			return BackJson.jsonFormat(BackStateEnum._500.getCode(), "缺少必要参数", null);
 		}else{
-			return BackJson.jsonFormat(exchangeRecordsService.selectAll(params,PageUtil.initParam(page, limit)));
+			return BackJson.jsonFormat(exchangeRecordsService.selectAll(params));
 		}
 	}
 	/**

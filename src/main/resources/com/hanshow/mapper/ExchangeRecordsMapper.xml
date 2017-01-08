@@ -19,7 +19,7 @@
 		<result column="ChannelCode" property="channelcode" jdbcType="VARCHAR" />
 		<result column="StoreId" property="storeId" jdbcType="INTEGER" />
 	</resultMap>
-	<insert id="insert" parameterType="com.hanshow.entity.ExchangeRecords" keyProperty="id">
+	<insert id="insert" parameterType="com.hanshow.entity.ExchangeRecords" keyProperty="id" useGeneratedKeys="true">
 		insert into exchange_records
 		(MemberId, GoodsId,
 		ExchangeCount, ExpenseIntegral, AddUserId,
@@ -112,7 +112,7 @@
 				and r.MemberId= #{memberId,jdbcType=VARCHAR}
 			</if>
 			<if test="goodsId != null">
-				and r.GoodsId= #{goodsId,jdbcType=Integral}
+				and r.GoodsId= #{goodsId,jdbcType=Integer}
 			</if>
 			<if test="exchangeCount != null">
 				and r.ExchangeCount =#{exchangeCount,jdbcType=INTEGER}
@@ -134,10 +134,10 @@
 				and r.StoreId=#{storeId,jdbcType=INTEGER}
 			</if>
 			<if test="startTime!=null">
-				and r.UpdateTime &gt;={#startTime,jdbcType=Date}
+				and r.AddTime &gt;=#{startTime}
 			</if>
 			<if test="endTime!=null">
-				and r.UpdateTime &lt;={#endTime,jdbcType=Date}
+				and r.AddTime &lt;=#{endTime}
 			</if>
 			and r.Status=1
 		</where>
@@ -176,10 +176,10 @@
 				and r.StoreId=#{storeId,jdbcType=INTEGER}
 			</if>
 			<if test="startTime!=null">
-				and r.UpdateTime &gt;={#startTime,jdbcType=Date}
+				and r.AddTime &gt;=#{startTime}
 			</if>
 			<if test="endTime!=null">
-				and r.UpdateTime &lt;={#endTime,jdbcType=Date}
+				and r.AddTime &lt;=#{endTime}
 			</if>
 			and r.Status=1
 		</where>

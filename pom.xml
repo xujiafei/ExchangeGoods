@@ -71,7 +71,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
@@ -80,6 +80,11 @@
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
 			<version>1.6</version>
+		</dependency> -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.0.27</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
